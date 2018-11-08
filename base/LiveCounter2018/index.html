@@ -1,0 +1,767 @@
+<!--
+1/ Update your Background (:16)
+2/ Update your Logo (:87)
+3/ Update your Title (:88)
+4/ Update your Access Token (:105)
+5/ Update your Post ID (:106) -->
+<!-- Original source code: https://gist.github.com/anonymous/7073ea6c601f28aa65e5a077ef875526 -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>JB Mini Round live scores</title>
+	<link rel="stylesheet" href="counterLayout.css">
+
+</head>
+<body>
+
+	<div id="chartContainer" style="height: 100%;"></div>
+	<script src="canvasjs.min.js"></script>
+
+
+	<script>
+	  window.fbAsyncInit = function() {
+	    FB.init({
+	      appId      : '252732908724602',
+	      cookie     : true,
+	      xfbml      : true,
+	      version    : '3.2'
+	    });
+
+	    FB.AppEvents.logPageView();
+
+	  };
+
+	  (function(d, s, id){
+	     var js, fjs = d.getElementsByTagName(s)[0];
+	     if (d.getElementById(id)) {return;}
+	     js = d.createElement(s); js.id = id;
+	     js.src = "https://connect.facebook.net/en_US/sdk.js";
+	     fjs.parentNode.insertBefore(js, fjs);
+	   }(document, 'script', 'facebook-jssdk'));
+
+
+		FB.getLoginStatus(function(response) {
+		    statusChangeCallback(response);
+		});
+
+	</script>
+
+
+	<fb:login-button
+	  scope="public_profile,email"
+	  onlogin="checkLoginState();">
+	</fb:login-button>
+
+
+	<!-- Team 1 -->
+
+
+	<script src="jquery.min.js"></script>
+	<script src="lodash.min.js"></script>
+	<script>
+
+	var Team1Total;
+
+	"use strict";
+	var access_token = '283851952239360|bRuCAWuaoY4eSBtlOfw1JhSit1A'; // PASTE HERE YOUR FACEBOOK ACCESS TOKEN
+	var postID1 = 320139148571273; // PASTE HERE YOUR POST ID
+	var refreshTime = 60; // Refresh time in seconds
+	var defaultCount = 0; // Default count to start with
+
+	var reactions = ['LIKE', 'LOVE', 'WOW', 'HAHA', 'SAD', 'ANGRY'].map(function (e) {
+		var code = 'reactions_' + e.toLowerCase();
+		return 'reactions.type(' + e + ').limit(0).summary(total_count).as(' + code + ')'
+	}).join(',');
+
+
+	var	v11 = $('.likes .counter1'),
+	v21 = $('.happy .counter1'),
+	v31 = $('.sad .counter1'),
+	v41 = $('.fml .counter1'),
+	v51 = $('.angry .counter1'),
+	v61 = $('.shock .counter1');
+
+	var total1 = $('.total1 .counter1');
+
+	function refreshCounts() {
+		var url = 'https://graph.facebook.com/v2.8/?ids=' + postID1 + '&fields=' + reactions + '&access_token=' + access_token;
+		$.getJSON(url, function(res){
+			v11.text(defaultCount + res[postID1].reactions_like.summary.total_count);
+			v21.text(defaultCount + res[postID1].reactions_love.summary.total_count);
+			v31.text(defaultCount + res[postID1].reactions_sad.summary.total_count);
+			v41.text(defaultCount + res[postID1].reactions_haha.summary.total_count);
+			v51.text(defaultCount + res[postID1].reactions_angry.summary.total_count);
+			v61.text(defaultCount + res[postID1].reactions_wow.summary.total_count);
+			total1.text(res[postID1].reactions_like.summary.total_count + res[postID1].reactions_love.summary.total_count +
+			res[postID1].reactions_sad.summary.total_count + res[postID1].reactions_haha.summary.total_count +
+		  res[postID1].reactions_angry.summary.total_count + res[postID1].reactions_wow.summary.total_count);
+
+			Team1Total = res[postID1].reactions_like.summary.total_count + res[postID1].reactions_love.summary.total_count +
+			res[postID1].reactions_sad.summary.total_count + res[postID1].reactions_haha.summary.total_count +
+		  res[postID1].reactions_angry.summary.total_count + res[postID1].reactions_wow.summary.total_count;
+
+		});
+	}
+
+	$(document).ready(function(){
+		setInterval(refreshCounts, refreshTime * 1000);
+		refreshCounts();
+	});
+	</script>
+
+	<!-- University 2 -->
+
+	<script src="jquery.min.js"></script>
+	<script src="lodash.min.js"></script>
+	<script>
+	"use strict";
+	var access_token = '1915570492085614|fH1QR5KNh6dsRIHhPG8RueFmdqs'; // PASTE HERE YOUR FACEBOOK ACCESS TOKEN
+	var postID = 311800126325435; // PASTE HERE YOUR POST ID
+	var refreshTime = 60; // Refresh time in seconds
+	var defaultCount = 0; // Default count to start with
+
+	var reactions = ['LIKE', 'LOVE', 'WOW', 'HAHA', 'SAD', 'ANGRY'].map(function (e) {
+		var code = 'reactions_' + e.toLowerCase();
+		return 'reactions.type(' + e + ').limit(0).summary(total_count).as(' + code + ')'
+	}).join(',');
+
+	var Team2Total;
+
+	var	v1 = $('.likes .counter2'),
+	v2 = $('.happy .counter2'),
+	v3 = $('.sad .counter2'),
+	v4 = $('.fml .counter2'),
+	v5 = $('.angry .counter2'),
+	v6 = $('.shock .counter2');
+	// total = v1 + v2 + v3 + v4 + v5 + v6
+	var total2 = $('.total2 .counter2');
+
+
+	function refreshCounts2() {
+		var url = 'https://graph.facebook.com/v2.8/?ids=' + postID + '&fields=' + reactions + '&access_token=' + access_token;
+		$.getJSON(url, function(res){
+			v1.text(defaultCount + res[postID].reactions_like.summary.total_count);
+			v2.text(defaultCount + res[postID].reactions_love.summary.total_count);
+			v3.text(defaultCount + res[postID].reactions_sad.summary.total_count);
+			v4.text(defaultCount + res[postID].reactions_haha.summary.total_count);
+			v5.text(defaultCount + res[postID].reactions_angry.summary.total_count);
+			v6.text(defaultCount + res[postID].reactions_wow.summary.total_count);
+			total2.text(res[postID].reactions_like.summary.total_count + res[postID].reactions_love.summary.total_count +
+			res[postID].reactions_sad.summary.total_count + res[postID].reactions_haha.summary.total_count +
+		  res[postID].reactions_angry.summary.total_count + res[postID].reactions_wow.summary.total_count);
+
+			Team2Total = res[postID].reactions_like.summary.total_count + res[postID].reactions_love.summary.total_count +
+			res[postID].reactions_sad.summary.total_count + res[postID].reactions_haha.summary.total_count +
+		  res[postID].reactions_angry.summary.total_count + res[postID].reactions_wow.summary.total_count;
+
+			// set chat.options...
+			// chart.render()
+		});
+	}
+
+
+	$(document).ready(function(){
+		setInterval(refreshCounts2, refreshTime * 1000);
+		refreshCounts2();
+	});
+	</script>
+
+	<!-- University 3 -->
+
+	<script src="jquery.min.js"></script>
+	<script src="lodash.min.js"></script>
+	<script>
+	"use strict";
+	var access_token = '340604316703260|zA9ZQWA4pirmRhOcJkbaRiKnixc'; // PASTE HERE YOUR FACEBOOK ACCESS TOKEN
+	var postID3 = 540762543017809; // PASTE HERE YOUR POST ID
+	var refreshTime = 60; // Refresh time in seconds
+	var defaultCount = 0; // Default count to start with
+
+	var reactions = ['LIKE', 'LOVE', 'WOW', 'HAHA', 'SAD', 'ANGRY'].map(function (e) {
+		var code = 'reactions_' + e.toLowerCase();
+		return 'reactions.type(' + e + ').limit(0).summary(total_count).as(' + code + ')'
+	}).join(',');
+
+	var Team3Total;
+
+	var	v13 = $('.likes .counter3'),
+	v23 = $('.happy .counter3'),
+	v333 = $('.sad .counter3'),
+	v43 = $('.fml .counter3'),
+	v53 = $('.angry .counter3'),
+	v63 = $('.shock .counter3');
+	var total3 = $('.total3 .counter3');
+
+	function refreshCounts3() {
+		var url = 'https://graph.facebook.com/v2.8/?ids=' + postID3 + '&fields=' + reactions + '&access_token=' + access_token;
+		$.getJSON(url, function(res){
+			v13.text(defaultCount + res[postID3].reactions_like.summary.total_count);
+			v23.text(defaultCount + res[postID3].reactions_love.summary.total_count);
+			v333.text(defaultCount + res[postID3].reactions_sad.summary.total_count);
+			v43.text(defaultCount + res[postID3].reactions_haha.summary.total_count);
+			v53.text(defaultCount + res[postID3].reactions_angry.summary.total_count);
+			v63.text(defaultCount + res[postID3].reactions_wow.summary.total_count);
+			total3.text(res[postID3].reactions_like.summary.total_count + res[postID3].reactions_love.summary.total_count +
+			res[postID3].reactions_sad.summary.total_count + res[postID3].reactions_haha.summary.total_count +
+		  res[postID3].reactions_angry.summary.total_count + res[postID3].reactions_wow.summary.total_count);
+
+			Team3Total = res[postID3].reactions_like.summary.total_count + res[postID3].reactions_love.summary.total_count +
+			res[postID3].reactions_sad.summary.total_count + res[postID3].reactions_haha.summary.total_count +
+		  res[postID3].reactions_angry.summary.total_count + res[postID3].reactions_wow.summary.total_count;
+
+		});
+	}
+
+	$(document).ready(function(){
+		setInterval(refreshCounts3, refreshTime * 1000);
+		refreshCounts3();
+	});
+	</script>
+
+	<!-- University 4 -->
+
+	<script src="jquery.min.js"></script>
+	<script src="lodash.min.js"></script>
+	<script>
+	"use strict";
+	var access_token = '286600072194146|VP4xN4m6J2spLwLlgzz-gujJL8Q'; // PASTE HERE YOUR FACEBOOK ACCESS TOKEN
+	var postID4 = 2730772563618216; // PASTE HERE YOUR POST ID
+	var refreshTime = 60; // Refresh time in seconds
+	var defaultCount = 0; // Default count to start with
+
+	var reactions = ['LIKE', 'LOVE', 'WOW', 'HAHA', 'SAD', 'ANGRY'].map(function (e) {
+		var code = 'reactions_' + e.toLowerCase();
+		return 'reactions.type(' + e + ').limit(0).summary(total_count).as(' + code + ')'
+	}).join(',');
+
+	var Team4Total;
+
+	var	v14 = $('.likes .counter4'),
+	v24 = $('.happy .counter4'),
+	v34 = $('.sad .counter4'),
+	v44 = $('.fml .counter4'),
+	v54 = $('.angry .counter4'),
+	v64 = $('.shock .counter4');
+	// total = v1 + v2 + v3 + v4 + v5 + v6
+	var total4 = $('.total4 .counter4');
+
+
+	function refreshCounts4() {
+		var url = 'https://graph.facebook.com/v2.8/?ids=' + postID4 + '&fields=' + reactions + '&access_token=' + access_token;
+		$.getJSON(url, function(res){
+			v14.text(defaultCount + res[postID4].reactions_like.summary.total_count);
+			v24.text(defaultCount + res[postID4].reactions_love.summary.total_count);
+			v34.text(defaultCount + res[postID4].reactions_sad.summary.total_count);
+			v44.text(defaultCount + res[postID4].reactions_haha.summary.total_count);
+			v54.text(defaultCount + res[postID4].reactions_angry.summary.total_count);
+			v64.text(defaultCount + res[postID4].reactions_wow.summary.total_count);
+			total4.text(res[postID4].reactions_like.summary.total_count + res[postID4].reactions_love.summary.total_count +
+			res[postID4].reactions_sad.summary.total_count + res[postID4].reactions_haha.summary.total_count +
+		  res[postID4].reactions_angry.summary.total_count + res[postID4].reactions_wow.summary.total_count);
+
+			Team4Total = res[postID4].reactions_like.summary.total_count + res[postID4].reactions_love.summary.total_count +
+			res[postID4].reactions_sad.summary.total_count + res[postID4].reactions_haha.summary.total_count +
+		  res[postID4].reactions_angry.summary.total_count + res[postID4].reactions_wow.summary.total_count;
+
+		});
+	}
+
+	$(document).ready(function(){
+		setInterval(refreshCounts4, refreshTime * 1000);
+		refreshCounts4();
+	});
+	</script>
+
+	<!-- University 5 -->
+
+	<script src="jquery.min.js"></script>
+	<script src="lodash.min.js"></script>
+	<script>
+	"use strict";
+	var access_token = '1492268757738340|0d5TrwTCFp7oidiiUvyPsJB4n1w'; // PASTE HERE YOUR FACEBOOK ACCESS TOKEN
+	var postID5 = 336139127145293; // PASTE HERE YOUR POST ID
+	var refreshTime = 60; // Refresh time in seconds
+	var defaultCount = 0; // Default count to start with
+
+	var reactions = ['LIKE', 'LOVE', 'WOW', 'HAHA', 'SAD', 'ANGRY'].map(function (e) {
+		var code = 'reactions_' + e.toLowerCase();
+		return 'reactions.type(' + e + ').limit(0).summary(total_count).as(' + code + ')'
+	}).join(',');
+
+	var Team5Total;
+
+	var	v15 = $('.likes .counter5'),
+	v25 = $('.happy .counter5'),
+	v35 = $('.sad .counter5'),
+	v45 = $('.fml .counter5'),
+	v55 = $('.angry .counter5'),
+	v65 = $('.shock .counter5');
+	var total5 = $('.total5 .counter5');
+
+
+	function refreshCounts5() {
+		var url = 'https://graph.facebook.com/v2.8/?ids=' + postID5 + '&fields=' + reactions + '&access_token=' + access_token;
+		$.getJSON(url, function(res){
+			v15.text(defaultCount + res[postID5].reactions_like.summary.total_count);
+			v25.text(defaultCount + res[postID5].reactions_love.summary.total_count);
+			v35.text(defaultCount + res[postID5].reactions_sad.summary.total_count);
+			v45.text(defaultCount + res[postID5].reactions_haha.summary.total_count);
+			v55.text(defaultCount + res[postID5].reactions_angry.summary.total_count);
+			v65.text(defaultCount + res[postID5].reactions_wow.summary.total_count);
+			total5.text(res[postID5].reactions_like.summary.total_count + res[postID5].reactions_love.summary.total_count +
+			res[postID5].reactions_sad.summary.total_count + res[postID5].reactions_haha.summary.total_count +
+		  res[postID5].reactions_angry.summary.total_count + res[postID5].reactions_wow.summary.total_count);
+
+			Team5Total = res[postID5].reactions_like.summary.total_count + res[postID5].reactions_love.summary.total_count +
+			res[postID5].reactions_sad.summary.total_count + res[postID5].reactions_haha.summary.total_count +
+		  res[postID5].reactions_angry.summary.total_count + res[postID5].reactions_wow.summary.total_count;
+
+		});
+	}
+
+	$(document).ready(function(){
+		setInterval(refreshCounts5, refreshTime * 1000);
+		refreshCounts5();
+	});
+	</script>
+
+	<!-- University 6 -->
+
+	<script src="jquery.min.js"></script>
+	<script src="lodash.min.js"></script>
+	<script>
+	"use strict";
+	var access_token = '87168401905576|ntDRDuI-XH32o50vCeetXmqitzI'; // PASTE HERE YOUR FACEBOOK ACCESS TOKEN
+	var postID6 = 255926881940211; // PASTE HERE YOUR POST ID
+	var refreshTime = 60; // Refresh time in seconds
+	var defaultCount = 0; // Default count to start with
+
+	var reactions = ['LIKE', 'LOVE', 'WOW', 'HAHA', 'SAD', 'ANGRY'].map(function (e) {
+		var code = 'reactions_' + e.toLowerCase();
+		return 'reactions.type(' + e + ').limit(0).summary(total_count).as(' + code + ')'
+	}).join(',');
+
+	var Team6Total;
+
+	var	v16 = $('.likes .counter6'),
+	v26 = $('.happy .counter6'),
+	v36 = $('.sad .counter6'),
+	v46 = $('.fml .counter6'),
+	v56 = $('.angry .counter6'),
+	v66 = $('.shock .counter6');
+	var total6 = $('.total6 .counter6');
+
+
+	function refreshCounts6() {
+		var url = 'https://graph.facebook.com/v2.8/?ids=' + postID6 + '&fields=' + reactions + '&access_token=' + access_token;
+		$.getJSON(url, function(res){
+			v16.text(defaultCount + res[postID6].reactions_like.summary.total_count);
+			v26.text(defaultCount + res[postID6].reactions_love.summary.total_count);
+			v36.text(defaultCount + res[postID6].reactions_sad.summary.total_count);
+			v46.text(defaultCount + res[postID6].reactions_haha.summary.total_count);
+			v56.text(defaultCount + res[postID6].reactions_angry.summary.total_count);
+			v66.text(defaultCount + res[postID6].reactions_wow.summary.total_count);
+			total6.text(res[postID6].reactions_like.summary.total_count + res[postID6].reactions_love.summary.total_count +
+			res[postID6].reactions_sad.summary.total_count + res[postID6].reactions_haha.summary.total_count +
+		  res[postID6].reactions_angry.summary.total_count + res[postID6].reactions_wow.summary.total_count);
+
+			Team6Total = res[postID6].reactions_like.summary.total_count + res[postID6].reactions_love.summary.total_count +
+			res[postID6].reactions_sad.summary.total_count + res[postID6].reactions_haha.summary.total_count +
+		  res[postID6].reactions_angry.summary.total_count + res[postID6].reactions_wow.summary.total_count;
+
+		});
+	}
+
+	$(document).ready(function(){
+		setInterval(refreshCounts6, refreshTime * 1000);
+		refreshCounts6();
+	});
+	</script>
+
+	<!-- University 7 -->
+
+	<script src="jquery.min.js"></script>
+	<script src="lodash.min.js"></script>
+	<script>
+	"use strict";
+	var access_token = '2000737103297763|itsg8539y81JYEzxyD76I_1kFbU'; // PASTE HERE YOUR FACEBOOK ACCESS TOKEN
+	var postID7 = 1948786145426832; // PASTE HERE YOUR POST ID
+	var refreshTime = 60; // Refresh time in seconds
+	var defaultCount = 0; // Default count to start with
+
+	var reactions = ['LIKE', 'LOVE', 'WOW', 'HAHA', 'SAD', 'ANGRY'].map(function (e) {
+		var code = 'reactions_' + e.toLowerCase();
+		return 'reactions.type(' + e + ').limit(0).summary(total_count).as(' + code + ')'
+	}).join(',');
+
+	var Team7Total;
+
+	var	v17 = $('.likes .counter7'),
+	v27 = $('.happy .counter7'),
+	v37 = $('.sad .counter7'),
+	v47 = $('.fml .counter7'),
+	v57 = $('.angry .counter7'),
+	v67 = $('.shock .counter7');
+	var total7 = $('.total7 .counter7');
+
+	function refreshCounts7() {
+		var url = 'https://graph.facebook.com/v2.8/?ids=' + postID7 + '&fields=' + reactions + '&access_token=' + access_token;
+		$.getJSON(url, function(res){
+			v17.text(defaultCount + res[postID7].reactions_like.summary.total_count);
+			v27.text(defaultCount + res[postID7].reactions_love.summary.total_count);
+			v37.text(defaultCount + res[postID7].reactions_sad.summary.total_count);
+			v47.text(defaultCount + res[postID7].reactions_haha.summary.total_count);
+			v57.text(defaultCount + res[postID7].reactions_angry.summary.total_count);
+			v67.text(defaultCount + res[postID7].reactions_wow.summary.total_count);
+			total7.text(res[postID7].reactions_like.summary.total_count + res[postID7].reactions_love.summary.total_count +
+			res[postID7].reactions_sad.summary.total_count + res[postID7].reactions_haha.summary.total_count +
+		  res[postID7].reactions_angry.summary.total_count + res[postID7].reactions_wow.summary.total_count);
+
+		Team7Total = res[postID7].reactions_like.summary.total_count + res[postID7].reactions_love.summary.total_count +
+		res[postID7].reactions_sad.summary.total_count + res[postID7].reactions_haha.summary.total_count +
+		res[postID7].reactions_angry.summary.total_count + res[postID7].reactions_wow.summary.total_count;
+
+		});
+	}
+
+	$(document).ready(function(){
+		setInterval(refreshCounts7, refreshTime * 1000);
+		refreshCounts7();
+	});
+	</script>
+
+	<!-- University 8  -->
+
+	<script src="jquery.min.js"></script>
+	<script src="lodash.min.js"></script>
+	<script>
+	"use strict";
+	var access_token = '1945645299073405|x3UbIy00Ahk9DbsGWm22c7RVvO8'; // PASTE HERE YOUR FACEBOOK ACCESS TOKEN
+	var postID8 = 341172783315200; // PASTE HERE YOUR POST ID
+	var refreshTime = 60; // Refresh time in seconds
+	var defaultCount = 0; // Default count to start with
+
+	var reactions = ['LIKE', 'LOVE', 'WOW', 'HAHA', 'SAD', 'ANGRY'].map(function (e) {
+		var code = 'reactions_' + e.toLowerCase();
+		return 'reactions.type(' + e + ').limit(0).summary(total_count).as(' + code + ')'
+	}).join(',');
+
+	var Team8Total;
+
+	var	v18 = $('.likes .counter8'),
+	v28 = $('.happy .counter8'),
+	v38 = $('.sad .counter8'),
+	v48 = $('.fml .counter8'),
+	v58 = $('.angry .counter8'),
+	v68 = $('.shock .counter8');
+	var total8 = $('.total8 .counter8');
+
+	function refreshCounts8() {
+		var url = 'https://graph.facebook.com/v2.8/?ids=' + postID8 + '&fields=' + reactions + '&access_token=' + access_token;
+		$.getJSON(url, function(res){
+			v18.text(defaultCount + res[postID8].reactions_like.summary.total_count);
+			v28.text(defaultCount + res[postID8].reactions_love.summary.total_count);
+			v38.text(defaultCount + res[postID8].reactions_sad.summary.total_count);
+			v48.text(defaultCount + res[postID8].reactions_haha.summary.total_count);
+			v58.text(defaultCount + res[postID8].reactions_angry.summary.total_count);
+			v68.text(defaultCount + res[postID8].reactions_wow.summary.total_count);
+			total8.text(res[postID8].reactions_like.summary.total_count + res[postID8].reactions_love.summary.total_count +
+			res[postID8].reactions_sad.summary.total_count + res[postID8].reactions_haha.summary.total_count +
+		  res[postID8].reactions_angry.summary.total_count + res[postID8].reactions_wow.summary.total_count);
+
+			Team8Total = res[postID8].reactions_like.summary.total_count + res[postID8].reactions_love.summary.total_count +
+			res[postID8].reactions_sad.summary.total_count + res[postID8].reactions_haha.summary.total_count +
+		  res[postID8].reactions_angry.summary.total_count + res[postID8].reactions_wow.summary.total_count;
+
+		});
+	}
+
+	$(document).ready(function(){
+		setInterval(refreshCounts8, refreshTime * 1000);
+		refreshCounts8();
+	});
+	</script>
+
+	<!-- University 9 -->
+
+	<script src="jquery.min.js"></script>
+	<script src="lodash.min.js"></script>
+	<script>
+	"use strict";
+	var access_token = '1492268757738340|0d5TrwTCFp7oidiiUvyPsJB4n1w '; // PASTE HERE YOUR FACEBOOK ACCESS TOKEN
+	var postID9 = 681215488931828; // PASTE HERE YOUR POST ID
+	var refreshTime = 60; // Refresh time in seconds
+	var defaultCount = 0; // Default count to start with
+
+	var reactions = ['LIKE', 'LOVE', 'WOW', 'HAHA', 'SAD', 'ANGRY'].map(function (e) {
+		var code = 'reactions_' + e.toLowerCase();
+		return 'reactions.type(' + e + ').limit(0).summary(total_count).as(' + code + ')'
+	}).join(',');
+
+	var Team9Total;
+
+	var	v19 = $('.likes .counter9'),
+	v29 = $('.happy .counter9'),
+	v39 = $('.sad .counter9'),
+	v49 = $('.fml .counter9'),
+	v59 = $('.angry .counter9'),
+	v69 = $('.shock .counter9');
+	// total = v1 + v2 + v3 + v4 + v5 + v6
+	var total9 = $('.total9 .counter9');
+
+	function refreshCounts9() {
+		var url = 'https://graph.facebook.com/v2.8/?ids=' + postID9 + '&fields=' + reactions + '&access_token=' + access_token;
+		$.getJSON(url, function(res){
+			// test = res[postID9].reactions_like.summary.total_count;
+			v19.text(defaultCount + res[postID9].reactions_like.summary.total_count);
+			v29.text(defaultCount + res[postID9].reactions_love.summary.total_count);
+			v39.text(defaultCount + res[postID9].reactions_sad.summary.total_count);
+			v49.text(defaultCount + res[postID9].reactions_haha.summary.total_count);
+			v59.text(defaultCount + res[postID9].reactions_angry.summary.total_count);
+			v69.text(defaultCount + res[postID9].reactions_wow.summary.total_count);
+			total9.text(res[postID9].reactions_like.summary.total_count + res[postID9].reactions_love.summary.total_count +
+			res[postID9].reactions_sad.summary.total_count + res[postID9].reactions_haha.summary.total_count +
+			res[postID9].reactions_angry.summary.total_count + res[postID9].reactions_wow.summary.total_count);
+
+			Team9Total = res[postID9].reactions_like.summary.total_count + res[postID9].reactions_love.summary.total_count +
+			res[postID9].reactions_sad.summary.total_count + res[postID9].reactions_haha.summary.total_count +
+			res[postID9].reactions_angry.summary.total_count + res[postID9].reactions_wow.summary.total_count;
+
+		});
+	}
+
+	$(document).ready(function (){
+		setInterval(refreshCounts9, refreshTime * 1000);
+		refreshCounts9();
+
+	});
+	</script>
+
+	<script>
+			window.onload = function () {
+
+			var Team1Name = "Imperial";
+			var Team2Name = "UCL";
+			var Team3Name = "UEA";
+			var Team4Name = "Leeds";
+			var Team5Name = "Manchester";
+			var Team6Name = "St.Georges";
+			var Team7Name = "Birmingham";
+			var Team8Name = "Brighton";
+			var Team9Name = "Queen Marys";
+
+			var chart = new CanvasJS.Chart("chartContainer", {
+
+				// height: 600,
+				// width: 1400,
+				borderColor: 'blue',
+				borderWidth: 6,
+				backgroundColor: null,
+				toolTip:{
+          borderColor: "purple",
+					markerBorderColor: "#32CD32",
+ 				},
+				title: {
+					text: " ",
+					fontSize: 100,
+					// font-family: "Comic Sans MS", cursive, sans-serif;
+				},
+				axisY: {
+					title: " ",
+					// fontColor = "white",
+					gridThickness: 0,
+					lineThickness:0,
+					tickThickness:0,
+					valueFormatString:" "//space
+				},
+				axisX:{
+					gridThickness: 0,
+					labelFontColor: "white",
+					labelFontFamily: "tahoma",
+					borderThickness: 20,
+					// borderRightColor: "blue",
+					labelAngle: 0,
+					// labelFontSize: 10,
+				},
+				data: [{
+					type: "bar",
+					indexLabel: "{y}",
+					// indexLabelWrap: true,
+					indexLabelFontColor: "white",
+					fillOpacity: .5,
+					indexLabelPlacement: "outside",
+		      // indexLabel: "{x}",
+          // indexLabelFontColor: "white",
+					dataPoints: [
+						{ label: Team1Name,   y: defaultCount },
+						{ label: Team2Name,   y: defaultCount },
+						{ label: Team3Name,   y: defaultCount },
+						{ label: Team4Name,   y: defaultCount },
+						{ label: Team5Name,   y: defaultCount },
+						{ label: Team6Name,   y: defaultCount },
+						{ label: Team7Name,   y: defaultCount },
+						{ label: Team8Name,   y: defaultCount },
+						{ label: Team9Name,   y: defaultCount }
+					]
+				}]
+			});
+
+
+
+			// a > b ? (a > c ? (a > d ? 1 : 2) : 3) : 4;
+
+			// var Team1Name = "Imperial";
+			// var Team2Name = "UCL";
+			// var Team3Name = "UEA";
+			// var Team4Name = "Leeds";
+			// var Team5Name = "Manchester";
+			// var Team6Name = "St.Georges";
+			// var Team7Name = "Birmingham";
+			// var Team8Name = "Brighton";
+			// var Team9Name = "Queen Marys";
+
+			// Array.min = function( array ){
+    	// 	return Math.min.apply( Math, array );
+			// };
+
+			function updateChart() {
+				var dps = chart.options.data[0].dataPoints;
+					barColor = "#8D39A2";
+
+					var Team1Pos = Team1Total > Team4Total ? 8 : 7;
+					var Team2Pos = Team2Total > Team5Total ? 6 : 5;
+					var Team3Pos = Team3Total > Team6Total ? 2 : 1;
+					var Team4Pos = Team1Total > Team4Total ? 7 : 8;
+					var Team5Pos = Team5Total > Team2Total ? 6 : 5;
+					var Team6Pos = Team6Total > Team3Total ? 2 : 1;
+					var Team7Pos = Team7Total > Team8Total ? 4 : 3;
+					var Team8Pos = Team8Total > Team7Total ? 4 : 3;
+					var Team9Pos = 0;
+
+					// var Team1Totalcopy = Team1Total;
+					// var Team2Totalcopy = Team2Total;
+					// var Team3Totalcopy = Team3Total;
+					// var Team4Totalcopy = Team4Total;
+					// var Team5Totalcopy = Team5Total;
+					// var Team6Totalcopy = Team6Total;
+					// var Team7Totalcopy = Team7Total;
+					// var Team8Totalcopy = Team8Total;
+					// var Team9Totalcopy = Team9Total;
+          //
+					// var totals = [Team1Totalcopy,Team2Totalcopy,Team3Totalcopy,Team4Totalcopy,Team5Totalcopy,Team6Totalcopy,Team7Totalcopy,Team8Totalcopy,Team9Totalcopy];
+					// var index;
+					// for (i = 0; i < 9; i++){
+					// 	var minimum = Array.min(totals);
+          //
+					// 	switch(minimum) {
+					// 	    case (minimum == Team1Total):
+					// 	        index = totals.indexOf(Team1Totalcopy);
+					// 					Team1Pos = i;
+					// 	        break;
+          //
+					// 	    case (minimum == Team2Total):
+					// 	        index = totals.indexOf(Team2Totalcopy);
+					// 					Team2Pos = i;
+					// 	        break;
+          //
+					// 			case (minimum == Team3Total):
+					// 					index = totals.indexOf(Team3Totalcopy);
+					// 					Team3Pos = i;
+					// 					break;
+          //
+					// 			case (minimum == Team4Total):
+					// 					index = totals.indexOf(Team4Totalcopy);
+					// 					Team4Pos = i;
+					// 					break;
+          //
+					// 			case (minimum == Team5Total):
+					// 					index = totals.indexOf(Team5Totalcopy);
+					// 					Team5Pos = i;
+					// 					break;
+          //
+					// 			case (minimum == Team6Total):
+					// 					index = totals.indexOf(Team6Totalcopy);
+					// 					Team6Pos = i;
+					// 					break;
+          //
+					// 			case (minimum == Team7Total):
+					// 					index = totals.indexOf(Team7Totalcopy);
+					// 					Team7Pos = i;
+					// 					break;
+          //
+					// 			case (minimum == Team8Total):
+					// 					index = totals.indexOf(Team8Totalcopy);
+					// 					Team8Pos = i;
+					// 					break;
+          //
+					// 			case (minimum == Team9Total):
+					// 					index = totals.indexOf(Team9Totalcopy);
+					// 					Team9Pos = i;
+					// 					break;
+          //
+	  			// 		  default:
+					// 	        break;
+					// 	}
+					// 	if (index > -1) {
+					// 	  totals.splice(index, 1);
+					// 	}
+					// }
+
+          // In the instance one of the apis are overloaded :
+          //
+					// if (Team1Total == null){
+				  //   Team1Total = 0;
+					// }
+          //
+					// if (Team2Total == null){
+				  //   Team2Total = 0;
+					// }
+          //
+					// if (Team3Total == null){
+				  //   Team3Total = 0;
+					// }
+					// if (Team4Total == null){
+				  //   Team4Total = 0;
+					// }
+          //
+					// if (Team5Total == null){
+				  //   Team5Total = 0;
+					// }
+          //
+					// if (Team6Total == null){
+				  //   Team6Total = 0;
+					// }
+					// if (Team7Total == null){
+				  //   Team7Total = 0;
+					// }
+          //
+					// if (Team8Total == null){
+				  //   Team8Total = 0;
+					// }
+          //
+					// if (Team9Total == null){
+				  //   Team9Total = 0;
+					// }
+
+					dps[Team1Pos]  = {label: Team1Name,	 	 y: Team1Total, color: barColor};
+					dps[Team2Pos]  = {label: Team2Name, 	 y: Team2Total, color: barColor};
+					dps[Team3Pos]  = {label: Team3Name, 	 y: Team3Total, color: barColor};
+					dps[Team4Pos]  = {label: Team4Name,	   y: Team4Total, color: barColor};
+					dps[Team5Pos]  = {label: Team5Name,    y: Team5Total, color: barColor};
+					dps[Team6Pos]  = {label: Team6Name,    y: Team6Total, color: barColor};
+					dps[Team7Pos]  = {label: Team7Name,    y: Team7Total, color: barColor};
+					dps[Team8Pos]  = {label: Team8Name,    y: Team8Total, color: barColor};
+					dps[Team9Pos]  = {label: Team9Name,    y: Team9Total, color: barColor};
+
+				chart.options.data[0].dataPoints = dps;
+
+				chart.render();
+			};
+			updateChart();
+			setInterval(function() {updateChart()}, 500);
+		}
+</script>
+
+</body>
+</html>

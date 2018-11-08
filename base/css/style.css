@@ -74,6 +74,11 @@ h2 {
 	color: silver;
 }
 
+#logos{
+  width: 50%;
+  margin: 0 auto;
+}
+
 #countdown div span {
 	display:block;
 	font-size: 50px;
